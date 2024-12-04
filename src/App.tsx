@@ -1,15 +1,26 @@
-import Nav from './components/Nav';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {Provider} from 'react-redux';
+import {store} from '@/feature/store';
+import LoginPage from '@/pages/LoginPage';
+import Dashboard from './pages/Dashboard';
+import ProtectedRoute from '@/components/ProtectectedRoute';
 
-const App = () => {
-    return (
-        <div className="min-h-screen bg-gray-100">
-            <Nav />
-            <main className="p-6">
-                <h1 className="text-3xl font-bold">Welcome to My App</h1>
-                <p className="mt-2 text-gray-700">This is a template for a Vite project with React and Tailwind CSS.</p>
-            </main>
-        </div>
-    );
-};
+const App = () => (
+    <Provider store={store}>
+        <Router>
+            <Routes>
+                <Route path="/" element={<LoginPage />} />
+                <Route
+                    path="/dashboard"
+                    element={
+                        <ProtectedRoute>
+                            <Dashboard />
+                        </ProtectedRoute>
+                    }
+                />
+            </Routes>
+        </Router>
+    </Provider>
+);
 
 export default App;
