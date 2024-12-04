@@ -1,3 +1,4 @@
+import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {RootState} from '@/feature/store';
 import AdminDashboard from '@/components/AdminDashboard';
@@ -5,7 +6,7 @@ import UserDashboard from '@/components/UserDashboard';
 import {logout} from '@/feature/authSlice';
 import {useNavigate} from 'react-router-dom';
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
     const {user} = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ const Dashboard = () => {
         navigate('/');
     };
 
-    if (!user) return null;
+    if (!user) return <div>Loading...</div>;
 
     return (
         <div className="p-4">
